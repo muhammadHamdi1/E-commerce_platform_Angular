@@ -4,11 +4,15 @@
         "inputgroup",
         "inputgroupaddon",
         "inputtext",
+        "iregister",
         "ngcontent",
         "nghm",
         "nghost",
         "primeflex",
         "primeicons",
-        "primeng"
+        "primeng",
+        "regitration",
+        "respose",
+        "Sigin"
     ]
 }

@@ -13,6 +13,12 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
+import { AuthService } from '../../core/service/auth.service';
+import { IRegister } from '../../core/interfaces/iregister';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -25,18 +31,26 @@ import { MessagesModule } from 'primeng/messages';
     InputTextModule,
     ButtonModule,
     MessagesModule,
+    ToastModule,
+    NgxSpinnerModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
+  providers: [MessageService],
 })
 export class RegisterComponent {
-  name!: FormControl
-  email!: FormControl
-  password!: FormControl
-  rePassword!: FormControl
-  registrationForm!: FormGroup
+  name!: FormControl;
+  email!: FormControl;
+  password!: FormControl;
+  rePassword!: FormControl;
+  registrationForm!: FormGroup;
 
-  constructor() {
+  constructor(
+    private authService_: AuthService,
+    private _messageService: MessageService,
+    private _ngxSpinnerService: NgxSpinnerService,
+    private router: Router,
+  ) {
     this.initFormControls();
     this.initFormGroup();
   }
@@ -68,20 +82,46 @@ export class RegisterComponent {
   }
   passwordMatch(pass: AbstractControl): ValidatorFn {
     return (rePass: AbstractControl): null | { [key: string]: boolean } => {
-      if (pass.value !== rePass.value || rePass.value === "") {
+      if (pass.value !== rePass.value || rePass.value === '') {
         return { passNotMatch: true };
       } else return null;
     };
   }
+
   submit() {
-    // console.log(this.registrationForm.value);
     if (this.registrationForm.valid) {
-      console.log(this.registrationForm.value);
+      this.SiginUp(this.registrationForm.value);
     } else {
       this.registrationForm.markAllAsTouched();
       Object.keys(this.registrationForm.controls).forEach((control) =>
         this.registrationForm.controls[control].markAsDirty()
       );
     }
+  }
+// Integrate API
+  SiginUp(data: IRegister): void {
+    this._ngxSpinnerService.show();
+    this.authService_.register(data).subscribe({
+      next:(respose)=>{
+        if(respose._id){
+          this.show('success', "Success", "Success Register" );
+          this.router.navigate(['login']);
+        }
+        this._ngxSpinnerService.hide();
+
+      },
+      error:(err) => {
+        this.show("error", "Error", err.error.error);
+        this._ngxSpinnerService.hide();
+      }
+        });
+  }
+  show(severity:string, summary:string, detail:string) {                // Tost msg registration
+
+    this._messageService.add({
+      severity: severity,
+      summary: summary,
+      detail: detail,
+    });
   }
 }

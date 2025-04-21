@@ -13,43 +13,29 @@
         </p-inputGroup>
         <div class="validation-msg">
           @if(name && name.touched) { @if(name.getError('required')){
-          <p-messages
-            [value]="[
+          <p-messages [value]="[
               {
                 severity: 'error',
                 summary: 'Error',
                 detail: '`Name is required`'
               }
-            ]"
-            [enableService]="false"
-            [closable]="false"
-          />
+            ]" [enableService]="false" [closable]="false" />
           } @if(name.getError('minlength')){
-          <p-messages
-            class="mx-0"
-            [value]="[
+          <p-messages class="mx-0" [value]="[
               {
                 severity: 'error',
                 summary: 'Error',
                 detail: '`must be at lest 3 char`'
               }
-            ]"
-            [enableService]="false"
-            [closable]="false"
-          />
+            ]" [enableService]="false" [closable]="false" />
           } @if(name.getError('maxlength')){
-          <p-messages
-            p-message-close
-            [value]="[
+          <p-messages p-message-close [value]="[
               {
                 severity: 'error',
                 summary: 'Error',
                 detail: '`Cannot exceed 20 char`'
               }
-            ]"
-            [enableService]="false"
-            [closable]="false"
-          />
+            ]" [enableService]="false" [closable]="false" />
           } }
         </div>
       </div>
@@ -63,29 +49,21 @@
         </p-inputGroup>
         <div class="validation-msg">
           @if(email && email.touched){ @if(email.getError('required')){
-          <p-messages
-            [value]="[
+          <p-messages [value]="[
               {
                 severity: 'error',
                 summary: 'Error',
                 detail: '`Email is required`'
               }
-            ]"
-            [enableService]="false"
-            [closable]="false"
-          />
+            ]" [enableService]="false" [closable]="false" />
           } @if(email.getError('email')){
-          <p-messages
-            [value]="[
+          <p-messages [value]="[
               {
                 severity: 'error',
                 summary: 'Error',
                 detail: '`Email not valid`'
               }
-            ]"
-            [enableService]="false"
-            [closable]="false"
-          />
+            ]" [enableService]="false" [closable]="false" />
           } }
         </div>
       </div>
@@ -95,52 +73,33 @@
           <p-inputGroupAddon>
             <i class="pi pi-lock"></i>
           </p-inputGroupAddon>
-          <input
-            pInputText
-            type="password"
-            formControlName="password"
-            placeholder="Password"
-          />
+          <input pInputText type="password" formControlName="password" placeholder="Password" />
         </p-inputGroup>
         <div class="validation-msg">
           @if(password && password.touched){ @if(password.getError('required')){
-          <p-messages
-            [value]="[
+          <p-messages [value]="[
               {
                 severity: 'error',
                 summary: 'Error',
                 detail: '`Password is required`'
               }
-            ]"
-            [enableService]="false"
-            [closable]="false"
-          />
+            ]" [enableService]="false" [closable]="false" />
           } @if(password.getError('minlength')){
-          <p-messages
-            class="mx-0"
-            [value]="[
+          <p-messages class="mx-0" [value]="[
               {
                 severity: 'error',
                 summary: 'Error',
                 detail: '`must be at lest 3 char`'
               }
-            ]"
-            [enableService]="false"
-            [closable]="false"
-          />
+            ]" [enableService]="false" [closable]="false" />
           } @if(password.getError('maxlength')){
-          <p-messages
-            p-message-close
-            [value]="[
+          <p-messages p-message-close [value]="[
               {
                 severity: 'error',
                 summary: 'Error',
                 detail: '`Cannot exceed 20 char`'
               }
-            ]"
-            [enableService]="false"
-            [closable]="false"
-          />
+            ]" [enableService]="false" [closable]="false" />
           } }
         </div>
       </div>
@@ -150,38 +109,33 @@
           <p-inputGroupAddon>
             <i class="pi pi-lock"></i>
           </p-inputGroupAddon>
-          <input
-            pInputText
-            type="password"
-            formControlName="rePassword"
-            placeholder="RePassword"
-          />
+          <input pInputText type="password" formControlName="rePassword" placeholder="RePassword" />
         </p-inputGroup>
         <div class="validation-msg">
           @if(rePassword && rePassword.touched){
           @if(rePassword.getError('passNotMatch')){
-          <p-messages
-            [value]="[
+          <p-messages [value]="[
               {
                 severity: 'error',
                 summary: 'Error',
                 detail: '`RePassword not match password`'
               }
-            ]"
-            [enableService]="false"
-            [closable]="false"
-          />
+            ]" [enableService]="false" [closable]="false" />
           } }
         </div>
       </div>
       <!-- Button Submit -->
       <!-- <div class="card flex justify-content-center"> -->
-      <p-button
-        type="submit"
-        label="Submit"
-        [disabled]="registrationForm.invalid"
-      />
+      <p-button type="submit" label="Submit" [disabled]="registrationForm.invalid" />
       <!-- </div> -->
     </form>
   </div>
+  <!-- Tost Registration -->
+  <div class="card flex justify-content-center">
+    <p-toast />
+  </div>
 </section>
+<!-- Snipper -->
+<ngx-spinner bdColor="rgba(0,0,0,0.2)" size="medium" color="#fff" type="ball-triangle-path" [fullScreen]="true">
+  <p style="color: white"> </p>
+</ngx-spinner>
