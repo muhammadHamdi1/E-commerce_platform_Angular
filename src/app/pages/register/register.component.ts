@@ -1,42 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
   FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { MessagesModule } from 'primeng/messages';
-import { AuthService } from '../../core/service/auth.service';
-import { IRegister } from '../../core/interfaces/iregister';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
-import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { Router } from '@angular/router';
+import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
+import { MessageService } from 'primeng/api';
+import { IRegister } from '../../core/interfaces/http';
+import { AuthService } from '../../core/service/auth.service';
+import { SharedModule } from '../../shared/module/shared/shared.module';
+
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
-    FormsModule,
-    InputGroupModule,
-    InputGroupAddonModule,
-    InputTextModule,
-    ButtonModule,
-    MessagesModule,
-    ToastModule,
-    NgxSpinnerModule,
+    SharedModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   providers: [MessageService],
+  encapsulation: ViewEncapsulation.None
 })
 export class RegisterComponent {
   name!: FormControl;
@@ -72,6 +59,7 @@ export class RegisterComponent {
       this.passwordMatch(this.password),
     ]);
   }
+
   initFormGroup(): void {
     this.registrationForm = new FormGroup({
       name: this.name,
@@ -80,6 +68,7 @@ export class RegisterComponent {
       rePassword: this.rePassword,
     });
   }
+
   passwordMatch(pass: AbstractControl): ValidatorFn {
     return (rePass: AbstractControl): null | { [key: string]: boolean } => {
       if (pass.value !== rePass.value || rePass.value === '') {
@@ -89,39 +78,82 @@ export class RegisterComponent {
   }
 
   submit() {
+    // console.log(this.registrationForm.value);
     if (this.registrationForm.valid) {
       this.SiginUp(this.registrationForm.value);
-    } else {
+    } else {      //  validate error 'input form'
       this.registrationForm.markAllAsTouched();
       Object.keys(this.registrationForm.controls).forEach((control) =>
         this.registrationForm.controls[control].markAsDirty()
       );
     }
   }
+
 // Integrate API
   SiginUp(data: IRegister): void {
     this._ngxSpinnerService.show();
     this.authService_.register(data).subscribe({
       next:(respose)=>{
         if(respose._id){
-          this.show('success', "Success", "Success Register" );
-          this.router.navigate(['login']);
-        }
-        this._ngxSpinnerService.hide();
-
-      },
+          this._ngxSpinnerService.hide();
+          this.show('success', "Success", "Success register" );
+          // Navigate direct to 'user'
+          const {email, password}= data;
+          this.authService_.login({email, password}).subscribe((next)=> {
+            this.router.navigate(['user']);
+          })
+          }
+        },
       error:(err) => {
-        this.show("error", "Error", err.error.error);
+        // if (err.error.error ===  undefined)  {
+        //   err.error.error = "User already exists!!";
+        //   this.show("error", "Error", err.error.error);
+        // } else {
+        //   this.show("error", "Error", err.error.error);
+        // }
         this._ngxSpinnerService.hide();
+        this.show("error", "Error", err.error.error);
+        console.log(err)
       }
         });
   }
-  show(severity:string, summary:string, detail:string) {                // Tost msg registration
 
-    this._messageService.add({
-      severity: severity,
-      summary: summary,
-      detail: detail,
-    });
-  }
+// registerAPI(data: IRegister): void {
+//   this.authService_.register(data).subscribe((data)=> console.log(data));
+// }
+
+show(severity:string, summary:string, detail:string) {
+  this._messageService.add({
+    severity: severity,
+    summary: summary,
+    detail: detail,
+  });
+}
+
+
+
+
+
+// Integrate API
+  // SiginUp(data: IRegister): void {
+
+  //   this.authService_.register(data).subscribe({
+  //     next:(respose)=>{
+  //       console.log(respose);
+  //       // this.show()
+  //     },
+  //     error:(err) => {
+  //       this.show('error', 'Error', err.error.error )
+  //       console.log(err.error.error);
+
+  //     }
+  //       });
+  // }
+  // Tost msg registration
+
+//   show() {
+//     this._messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
+// }
+
+
 }
