@@ -67,10 +67,12 @@ export class LoginComponent {
     this.authService_.login(data).subscribe({
       next:(respose)=>{
         if(respose._id){
-          this.show('success', "Success", "Success login" );
           this._ngxSpinnerService.hide();
-          this.router.navigate(['user']);
+          this.show('success', "Success", "Success login" );
+          // guard authentication
+          localStorage.setItem('token' , respose._id)
         }
+        this.router.navigate(['user']);
       },
       error:(err) => {
         this._ngxSpinnerService.hide();
