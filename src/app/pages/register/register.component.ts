@@ -100,6 +100,7 @@ export class RegisterComponent {
           // Navigate direct to 'user'
           const {email, password}= data;
           this.authService_.login({email, password}).subscribe((next)=> {
+          localStorage.setItem('token', respose._id)
             this.router.navigate(['user']);
           })
           }

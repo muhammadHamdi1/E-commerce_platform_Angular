@@ -18,4 +18,10 @@ export class AuthService {
   login(loginUser: ILogin): Observable<any> {
     return this._httpClient.post(`${baseUrl}/api/users/auth`, loginUser)
   }
+
+  authorized() : boolean {
+    if(localStorage.getItem('token') !== null){
+      return true
+    } else return false;
+  }
 }
