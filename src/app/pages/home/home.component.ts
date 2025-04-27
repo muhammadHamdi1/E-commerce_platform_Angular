@@ -1,19 +1,29 @@
 import { Component } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 import { CardComponent } from "../../shared/card/card/card.component";
+import { UserDataService } from '../../core/service/user-data.service';
+import { IProducts } from '../../core/interfaces/http';
+import { PopularPipe } from '../../core/pipes/popular.pipe';
+import { ProductsService } from '../../core/service/products.service';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [GalleriaModule, CardComponent],
+  imports: [GalleriaModule, CardComponent, PopularPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 
 })
 export class HomeComponent {
   images: any[] | undefined;
+  smallProducts!: IProducts[];
+  popularProducts!: IProducts[];
 
+  constructor(
+    private _productsService: ProductsService,
+
+  ) {}
   ngOnInit() {
       this.images = [
         {
@@ -37,6 +47,14 @@ export class HomeComponent {
           title: 'product 4'
       },
       ]
+
+      this.gitAllProducts();
   }
 
+  gitAllProducts(): void {
+    this._productsService.allProducts().subscribe((next)=> {
+      this.smallProducts= next.slice(0,4);
+      this.popularProducts= next;
+    });
+  }
 }

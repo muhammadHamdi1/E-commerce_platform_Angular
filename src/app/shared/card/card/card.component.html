@@ -1,12 +1,12 @@
 <div class="flex justify-content-between align-items-center flex-wrap">
   <!-- product_1 -->
   <!-- Array Of Cards -->
-  @for (item of [0,0,0,0]; track $index) {
+  @for (product of products; track $index) {
   <!--Change type class style  -->
   <div
     [ngClass]="{
       'col-6': isSmallCard,
-      'col-12 md:col-3 lg:col-2': !isSmallCard
+      'col-12 md:col-4 lg:col-3': !isSmallCard
     }"
     class="col-6"
   >
@@ -14,28 +14,32 @@
       [ngClass]="{
         'flex flex-wrap lg:flex-nowrap justify-content-center gap-2':
           isSmallCard,
-
       }"
     >
       <figure
+        [routerLink]="['../cart', product._id]"
         [ngClass]="{
-          'md:w-6rem lg:w-12rem': isSmallCard,
-
+          'md:w-6rem lg:w-9rem': isSmallCard,
         }"
         class="m-1 shadow-2 border-round-2xl overflow-hidden"
       >
         <img
-          class="w-full h-full"
-          src="https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1692255692675-ant sport.jpg"
+          #image
+          [ngClass]="{ 'h-full': isSmallCard, 'h-20rem': !isSmallCard }"
+          class="w-full cursor-pointer"
+          [src]="product.image"
+          (error)="
+            image.src =
+              'https://storage.googleapis.com/fir-auth-1c3bc.appspot.com/1692257709689-logitech%20heaphone.jpg'
+          "
           alt=""
         />
       </figure>
       <!-- content -->
-      <div class="content py-1">
+      <div class="content py-1 w-full">
         <!-- paragraph -->
         <p class="truncate-text overflow-hidden font-medium text-xs my-1">
-          Ant Esports GP310 Wireless Gamepad, Compatible for PC & Laptop
-          (Windows 10/8 /7, Steam) / PS3 / Android
+          {{ product.description }}
         </p>
         <div class="flex align-items-center gap-2">
           <!-- price -->
@@ -44,18 +48,28 @@
               <del>14</del>
             </span>
             <span class="new-price font-bold">
-              <span class="text-green-400">$</span>14
+              <span class="text-green-400">$</span>{{ product.price }}
             </span>
           </div>
           <!-- offer -->
           <div class="offer">
-            <span class="bg-red-500 p-1 border-circle text-white text-xs"
-              >%3</span
-            >
+            <span class="bg-red-500 p-1 border-circle text-white text-xs">{{
+              product.discount
+            }}</span>
             <span class="font-bold text-xs px-1">off</span>
           </div>
         </div>
       </div>
+      <!-- Button -->
+      @if (!isSmallCard) {
+      <p-button
+        label="add to card"
+        severity="warning"
+        styleClass="my-2 uppercase w-full"
+        icon="pi pi-cart-plus text-xl"
+        iconPos="right"
+      />
+      }
     </div>
   </div>
   }

@@ -28,13 +28,15 @@
       </div>
       <!-- Products -->
       <div class="hidden md:block md:col-6">
-        <app-card [isSmallCard]="true" />
+        <app-card [isSmallCard]="true" [products]="smallProducts" />
       </div>
     </div>
     <!-- Content -->
     <div class="product">
-      <h2 class="text-color-secondary font-bold">best product</h2>
-      <app-card [isSmallCard]="false" />
+      <h2 class="text-color-secondary font-bold capitalize">
+        popular products
+      </h2>
+      <app-card [isSmallCard]="false" [products]="popularProducts | popular" />
     </div>
   </div>
 </section>
