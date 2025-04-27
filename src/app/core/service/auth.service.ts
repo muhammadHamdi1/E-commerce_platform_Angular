@@ -23,5 +23,9 @@ export class AuthService {
     if(localStorage.getItem('token') !== null){
       return true
     } else return false;
+  };
+
+  logout(): Observable<any> {
+    return this._httpClient.post(`${baseUrl}/api/users/logout`, {});
   }
 }

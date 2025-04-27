@@ -1,0 +1,37 @@
+.p-badge {
+  background-color: #f97316;
+}
+.user-name {
+  border-radius: 10px;
+
+  &::before {
+    position: absolute;
+    content: "";
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50% , 100%);
+    border: {
+      style: solid;
+      width: 10px;
+      color: #f97316  transparent transparent transparent
+    }
+    // display: none;
+  }
+}
+// .user-name:hover{
+//   &::before {
+//     display: block;
+//   }
+// }
+.logout{
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50% , calc(100% + 10px));
+  padding: 5px 15px;
+  border-radius: 10px;
+  background-color: #fba86f;
+}
+.logout:hover{
+  background-color: #f97316;
+}
+

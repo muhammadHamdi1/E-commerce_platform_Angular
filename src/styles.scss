@@ -1,17 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
 /* You can add global styles to this file, and also import other style files */
 body {
+  // margin: 0 3px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 0;
 }
+.container-fluid {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding {
+    left: 20px;
+    right: 20px;
+  }
+  // margin {
+  //   left: 100px;
+  //   right: 100px;
+  // }
+}
 .container {
   margin-left: auto;
   margin-right: auto;
+  padding {
+    left: 20px;
+    right: 20px;
+  }
 }
 @media only screen and (max-width: 767px) {
   .container {
-    max-width: 90%;
+    max-width: 95%;
   }
 }
 @media only screen and (min-width: 768px) {

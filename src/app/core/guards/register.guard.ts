@@ -10,6 +10,6 @@ export const registerGuard: CanDeactivateFn<RegisterComponent> = (
   if(component.registrationForm.valid){
       const alert = window.confirm('Your data will be lose');
       return alert;
-  }
+  } else
   return true;
 };

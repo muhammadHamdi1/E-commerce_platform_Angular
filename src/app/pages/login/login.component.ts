@@ -7,6 +7,7 @@ import { ILogin } from '../../core/interfaces/http';
 import { AuthService } from '../../core/service/auth.service';
 import { SharedModule } from '../../shared/module/shared/shared.module';
 import { RippleModule } from 'primeng/ripple';
+import { UserDataService } from '../../core/service/user-data.service';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class LoginComponent {
     private _messageService: MessageService,
     private _ngxSpinnerService: NgxSpinnerService,
     private router: Router,
+    private _userData: UserDataService,
   ) {
     this.initFormControls();
     this.initFormGroup();
@@ -67,11 +69,14 @@ export class LoginComponent {
     this.authService_.login(data).subscribe({
       next:(respose)=>{
         if(respose._id){
-          this._ngxSpinnerService.hide();
           this.show('success', "Success", "Success login" );
           // guard authentication
-          localStorage.setItem('token' , respose._id)
+          localStorage.setItem('token' ,respose._id);
+          // update on userData
+          this._userData.userName.next(respose.name);
+          localStorage.setItem('username' ,respose.name);
         }
+        this._ngxSpinnerService.hide();
         this.router.navigate(['user']);
       },
       error:(err) => {
