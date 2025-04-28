@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from 'primeng/api';
 import { ILogin } from '../../core/interfaces/http';
 import { AuthService } from '../../core/service/auth.service';
@@ -30,7 +29,6 @@ export class LoginComponent {
   constructor(
     private authService_: AuthService,
     private _notifecationsService: NotifecationsService,
-    private _ngxSpinnerService: NgxSpinnerService,
     private router: Router,
     private _userData: UserDataService,
   ) {
@@ -66,7 +64,6 @@ export class LoginComponent {
   }
 // Integrate API
   SiginIn(data: ILogin): void {
-    this._ngxSpinnerService.show();
     this.authService_.login(data).subscribe({
       next:(respose)=>{
         if(respose._id){
@@ -77,11 +74,9 @@ export class LoginComponent {
           this._userData.userName.next(respose.name);
           localStorage.setItem('username' ,respose.name);
         }
-        this._ngxSpinnerService.hide();
         this.router.navigate(['user']);
       },
       error:(err) => {
-        this._ngxSpinnerService.hide();
         // if(err.error.error === undefined){      // if No Internet
         //   this.show('error', 'Error', err.statusText);
         // }else {

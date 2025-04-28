@@ -7,7 +7,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from 'primeng/api';
 import { IRegister } from '../../core/interfaces/http';
 import { AuthService } from '../../core/service/auth.service';
@@ -39,7 +38,6 @@ export class RegisterComponent {
 
   constructor(
     private authService_: AuthService,
-    private _ngxSpinnerService: NgxSpinnerService,
     private router: Router,
     private _userData: UserDataService,
     private _notifecationsService: NotifecationsService,
@@ -98,11 +96,9 @@ export class RegisterComponent {
 
 // Integrate API
   SiginUp(data: IRegister): void {
-    this._ngxSpinnerService.show();
     this.authService_.register(data).subscribe({
       next:(respose)=>{
         if(respose._id){
-          this._ngxSpinnerService.hide();
           this._notifecationsService.showSuccess("Success", "Success register" );
           // Navigate direct to 'user'
           const {email, password}= data;
@@ -122,7 +118,6 @@ export class RegisterComponent {
         // } else {
         //   this.show("error", "Error", err.error.error);
         // }
-        this._ngxSpinnerService.hide();
         this._notifecationsService.showError("Error", err.error.error);
         console.log(err)
       }
