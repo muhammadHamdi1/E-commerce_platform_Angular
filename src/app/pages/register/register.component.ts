@@ -14,6 +14,7 @@ import { AuthService } from '../../core/service/auth.service';
 import { SharedModule } from '../../shared/module/shared/shared.module';
 import { UserDataService } from '../../core/service/user-data.service';
 import { response } from 'express';
+import { NotifecationsService } from '../../core/service/notifecations.service';
 
 
 @Component({
@@ -34,12 +35,14 @@ export class RegisterComponent {
   rePassword!: FormControl;
   registrationForm!: FormGroup;
 
+  isRegisterd: boolean= false;
+
   constructor(
     private authService_: AuthService,
-    private _messageService: MessageService,
     private _ngxSpinnerService: NgxSpinnerService,
     private router: Router,
     private _userData: UserDataService,
+    private _notifecationsService: NotifecationsService,
   ) {
     this.initFormControls();
     this.initFormGroup();
@@ -84,6 +87,7 @@ export class RegisterComponent {
     // console.log(this.registrationForm.value);
     if (this.registrationForm.valid) {
       this.SiginUp(this.registrationForm.value);
+      this.isRegisterd= true;
     } else {      //  validate error 'input form'
       this.registrationForm.markAllAsTouched();
       Object.keys(this.registrationForm.controls).forEach((control) =>
@@ -99,13 +103,13 @@ export class RegisterComponent {
       next:(respose)=>{
         if(respose._id){
           this._ngxSpinnerService.hide();
-          this.show('success', "Success", "Success register" );
+          this._notifecationsService.showSuccess("Success", "Success register" );
           // Navigate direct to 'user'
           const {email, password}= data;
           this.authService_.login({email, password}).subscribe((next)=> {
           localStorage.setItem('token', respose._id);
 
-          this.router.navigate(['home']);
+          this.router.navigate(['user']);
           this._userData.userName.next (respose.name);
           localStorage.setItem('username' ,respose.name);
           })
@@ -119,7 +123,7 @@ export class RegisterComponent {
         //   this.show("error", "Error", err.error.error);
         // }
         this._ngxSpinnerService.hide();
-        this.show("error", "Error", err.error.error);
+        this._notifecationsService.showError("Error", err.error.error);
         console.log(err)
       }
         });
@@ -129,13 +133,7 @@ export class RegisterComponent {
 //   this.authService_.register(data).subscribe((data)=> console.log(data));
 // }
 
-show(severity:string, summary:string, detail:string) {
-  this._messageService.add({
-    severity: severity,
-    summary: summary,
-    detail: detail,
-  });
-}
+
 
 
 

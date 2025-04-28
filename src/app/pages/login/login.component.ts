@@ -8,6 +8,7 @@ import { AuthService } from '../../core/service/auth.service';
 import { SharedModule } from '../../shared/module/shared/shared.module';
 import { RippleModule } from 'primeng/ripple';
 import { UserDataService } from '../../core/service/user-data.service';
+import { NotifecationsService } from '../../core/service/notifecations.service';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class LoginComponent {
 
   constructor(
     private authService_: AuthService,
-    private _messageService: MessageService,
+    private _notifecationsService: NotifecationsService,
     private _ngxSpinnerService: NgxSpinnerService,
     private router: Router,
     private _userData: UserDataService,
@@ -69,7 +70,7 @@ export class LoginComponent {
     this.authService_.login(data).subscribe({
       next:(respose)=>{
         if(respose._id){
-          this.show('success', "Success", "Success login" );
+          this._notifecationsService.showSuccess("Success", "Success login" );
           // guard authentication
           localStorage.setItem('token' ,respose._id);
           // update on userData
@@ -86,18 +87,9 @@ export class LoginComponent {
         // }else {
         //   this.show('error', 'Error', err.error.error);
         // }
-        this.show('error', 'Error', err.error.error);
-
+        this._notifecationsService.showError('Error', err.error.error);
         console.log(err)
       }
-        });
-  }
-
-  show(severity:string, summary:string, detail:string) {          // Tost msg login
-    this._messageService.add({
-      severity: severity,
-      summary: summary,
-      detail: detail,
     });
   }
 }

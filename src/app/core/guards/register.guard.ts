@@ -7,7 +7,7 @@ export const registerGuard: CanDeactivateFn<RegisterComponent> = (
   currentState,
   nextState
 ) => {
-  if(component.registrationForm.valid){
+  if( !component.isRegisterd && component.registrationForm.valid){
       const alert = window.confirm('Your data will be lose');
       return alert;
   } else

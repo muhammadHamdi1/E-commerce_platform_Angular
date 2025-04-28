@@ -4,6 +4,7 @@ import { IProducts } from '../../../core/interfaces/http';
 import { ButtonModule } from 'primeng/button';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../../core/service/cart.service';
+import { NotifecationsService } from '../../../core/service/notifecations.service';
 
 @Component({
   selector: 'app-card',
@@ -19,11 +20,13 @@ export class CardComponent {
 
 constructor(
   private _cartService: CartService,
+  private _notifecationsService: NotifecationsService
 ) {};
 
   addToCart(productId: string): void {
     const userId= localStorage.getItem('token')?? '';
     this._cartService.addToCart({userId, productId}).subscribe((next)=> {
+      this._notifecationsService.showSuccess('success', next.message);
       console.log(next);
       // get count of products in cart
       this._cartService.countOfCart.next(next.cart.length)
