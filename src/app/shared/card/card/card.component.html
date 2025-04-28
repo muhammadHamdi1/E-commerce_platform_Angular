@@ -60,16 +60,26 @@
           </div>
         </div>
       </div>
-      <!-- Button -->
-      @if (!isSmallCard) {
+      <!-- Button
+            Swap between [add to cart & go to cart] -->
+      @if (!isSmallCard) { @if(!product.isAddedToCart){
       <p-button
+        (click)="addToCart(product._id); product.isAddedToCart = true"
         label="add to card"
         severity="warning"
         styleClass="my-2 uppercase w-full"
         icon="pi pi-cart-plus text-xl"
         iconPos="right"
+      />} @if (product.isAddedToCart){
+      <p-button
+        [routerLink]="['../cart', product._id]"
+        label="go to cart"
+        severity="contrast"
+        styleClass="my-2 uppercase w-full"
+        icon="pi pi-shopping-cart text-xl"
+        iconPos="right"
       />
-      }
+      } }
     </div>
   </div>
   }

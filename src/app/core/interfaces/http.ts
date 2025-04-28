@@ -21,4 +21,5 @@ export interface IProducts {
   category: string,
   discount: number,
   popular: boolean;
+  isAddedToCart: boolean;
 }

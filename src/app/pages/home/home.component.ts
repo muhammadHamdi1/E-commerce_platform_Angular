@@ -5,6 +5,7 @@ import { UserDataService } from '../../core/service/user-data.service';
 import { IProducts } from '../../core/interfaces/http';
 import { PopularPipe } from '../../core/pipes/popular.pipe';
 import { ProductsService } from '../../core/service/products.service';
+import { CartService } from '../../core/service/cart.service';
 
 
 @Component({
@@ -52,9 +53,20 @@ export class HomeComponent {
   }
 
   gitAllProducts(): void {
-    this._productsService.allProducts().subscribe((next)=> {
-      this.smallProducts= next.slice(0,4);
-      this.popularProducts= next;
+
+    const storedCart= localStorage.getItem('cartState');
+    const cartState= storedCart? JSON.parse(storedCart): {};
+
+    this._productsService.allProducts().subscribe((response: IProducts[])=> {
+      this.smallProducts= response.slice(0,4);
+      this.popularProducts= response.map((product)=> {
+        return {
+          ...product,
+          //get state of product._id
+          isAddedToCart: cartState[product._id] || false,
+        }
+      });
+      console.log(this.popularProducts);
     });
-  }
+  };
 }

@@ -56,6 +56,11 @@ export class UserNavComponent {
           },
 
       ];
+
+      // get update count of products in cart
+      this._cartService.countOfCart.subscribe((next)=>{
+        this.cartCount= next;
+      })
   }
 
   getUserName() : void{
