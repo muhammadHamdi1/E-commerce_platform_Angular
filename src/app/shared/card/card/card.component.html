@@ -82,5 +82,20 @@
       } }
     </div>
   </div>
-  }
+  }@empty { @if (!isSmallCard) {
+  <div class="flex-1 text-center">
+    <app-empty></app-empty>
+    <h5 class="capitalize">
+      no product to show <span class="text-red-500">{{ searchKey }}</span>
+    </h5>
+    <p-button
+      [routerLink]="['/user']"
+      label="back to home"
+      severity="warning"
+      styleClass="my-2 uppercase w-full"
+      icon="pi pi-cart-plus text-xl"
+      iconPos="right"
+    />
+  </div>
+  } }
 </div>

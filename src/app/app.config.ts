@@ -14,7 +14,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     MessageService,
     provideAnimations(),
-    importProvidersFrom(HttpClientModule),
-    provideHttpClient(withFetch(),withInterceptors([myLoadingInterceptor,])),
+    provideHttpClient(withFetch(), withInterceptors([myLoadingInterceptor])),
   ],
 };
