@@ -57,9 +57,12 @@ export class HomeComponent {
     const storedCart= localStorage.getItem('cartState');
     const cartState= storedCart? JSON.parse(storedCart): {};
 
-    this._productsService.allProducts().subscribe((response: IProducts[])=> {
-      this.smallProducts= response.slice(0,4);
-      this.popularProducts= response.map((product)=> {
+    // this._productsService.allProducts().subscribe((response: IProducts[])=> {
+      // this.smallProducts= response.slice(0,4);
+      // this.popularProducts= response.map((product)=> {
+      this._productsService.allProducts().subscribe((response: any)=> {
+        this.smallProducts= response.products.slice(0,4);
+        this.popularProducts= response.products.map((product: IProducts)=> {
         return {
           ...product,
           //get state of product._id
