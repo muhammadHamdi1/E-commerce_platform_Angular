@@ -18,23 +18,23 @@ export class DetailsComponent {
   productDetails!: IProducts;
   isAddedToCart: boolean= false
   constructor(
-    private _details: ProductsService,
     private _activatedRoute: ActivatedRoute,
     private _cartService: CartService,
     private _notifecationsService: NotifecationsService
-  ){}
-
+  ){};
 
   ngOnInit(){
     this._activatedRoute.paramMap.subscribe(
       (next: any) => (this.id = next.params['id']) );
 
     this.displayDetails();
-  }
+  };
 
   displayDetails(): void {
-    this._details.getDetails(this.id)
-    .subscribe((next)=> (this.productDetails= next.product));
+    // get Data into resolve
+    this._activatedRoute.data.subscribe((data: any)=> {
+      this.displayDetails = data.details.product
+    });
   };
 
   addToCart(productId: string): void {
@@ -54,5 +54,5 @@ export class DetailsComponent {
       cartState[productId]= true;
       localStorage.setItem('cartState', JSON.stringify(cartState));
     })
-  }
+  };
 };
