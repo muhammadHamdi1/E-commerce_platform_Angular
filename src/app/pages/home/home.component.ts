@@ -66,7 +66,7 @@ export class HomeComponent {
         return {
           ...product,
           //get state of product._id
-          isAddedToCart: cartState[product._id] || false,
+          isAddedToCart: cartState[product.id] || false,
         }
       });
       console.log(this.popularProducts);
