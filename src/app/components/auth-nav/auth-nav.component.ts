@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { ViewEncapsulation } from '@angular/compiler';
 
 @Component({
   selector: 'app-auth-nav',
@@ -10,6 +9,7 @@ import { ViewEncapsulation } from '@angular/compiler';
   imports: [MenubarModule, RouterLink, RouterLinkActive],
   templateUrl: './auth-nav.component.html',
   styleUrl: './auth-nav.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class AuthNavComponent {
   items: MenuItem[] | undefined;

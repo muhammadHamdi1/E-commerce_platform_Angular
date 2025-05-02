@@ -18,7 +18,6 @@ export class HomeComponent {
   images: any[] | undefined;
   smallProducts!: IProducts[];
   popularProducts!: IProducts[];
-  i = 0 ;
 
   constructor(
     private _productsService: ProductsService,

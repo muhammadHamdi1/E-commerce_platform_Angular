@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <div class="card">
-  <p-menubar>
+  <p-menubar class="parent-nav bg-orange-600 text-orange-500">
     <ng-template pTemplate="start">
       <figure class="my-0 mx-2">
         <img class="w-2rem" src="./assets/logo.svg" alt="logo" />
@@ -9,10 +9,10 @@
     <ng-template pTemplate="end">
       @for(item of items; track $index){
       <a
-        routerLinkActive="surface-200"
+        routerLinkActive="text-orange-500"
         [routerLink]="[item?.['path']]"
         pRipple
-        class="p-menuitem-link p-link inline-flex justify-content-center align-items-center hover:surface-100 transition-all transition-duration-200 p-2 mx-1 text-black-alpha-70"
+        class="p-menuitem-link p-link inline-flex justify-content-center align-items-center hover:surface-100 transition-all transition-duration-200 p-2 mx-1 text-orange-200 font-bold"
       >
         <span [class]="item.icon"></span>
         <span class="ml-2">{{ item.label }}</span>

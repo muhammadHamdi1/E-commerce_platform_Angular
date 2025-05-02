@@ -25,13 +25,15 @@
 }
  /* Start Footer  */
 .footer {
-  padding-top: 20px;
+  padding-top: 10px;
   padding-bottom: 10px;
   background-image:
   linear-gradient(to right , rgb(0 0 0 / 40%), rgba(0 0 0 / 40%)),
+
   // url("/E-commerce/assets/subscribe.jpg");
-  url("/assets/footer-follow.jpg");
-  background-size: cover;
+  // url("/assets/footer-follow.jpg");
+  url("/assets/footer-f.jpg");
+  background-size: auto;
   text-align: center;
   color: white;
   // min-width: 150%;
@@ -64,7 +66,7 @@
   line-height: 1.6;
 }
 .footer .copyright span {
-  color: #19c8fa;
+  color: #ff491f;
   font-weight: bold;
   font-size: 1.3em;
 }
@@ -111,7 +113,7 @@
   color: #0866ff;
 }
 .footer .pi-twitter:hover{
-  color: black;
+  color: white;
 }
 .footer .pi-whatsapp:hover{
   color: #25d366;

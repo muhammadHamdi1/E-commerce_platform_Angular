@@ -3,10 +3,10 @@
     <h1 class="text-color-secondary capitalize my-5">all categories</h1>
     <div class="grid justify-content-between">
       @for(category of allCategory; track $index){
-      <div class="md:col-6 lg:col-4">
+      <div class="parent md:col-6 lg:col-4">
         <figure
           [routerLink]="['../specificCategory', category]"
-          class="m-1 shadow-2 border-round-2xl overflow-hidden cursor-pointer"
+          class="figure m-1 shadow-2 border-round-2xl overflow-hidden cursor-pointer zoomin animation-duration-1000"
         >
           <!-- <img class="w-full" src="./assets/product-1.jpg" [alt]="category" /> -->
           <img
@@ -15,7 +15,7 @@
             [alt]="category"
           />
         </figure>
-        <h2 class="text-color-secondary capitalize text-center">
+        <h2 class="text-orange-500 capitalize text-center">
           {{ category }}
         </h2>
       </div>

@@ -9,7 +9,8 @@
       <a
         [routerLink]="item?.['path']"
         pRipple
-        class="flex align-items-center p-menuitem-link"
+        routerLinkActive="text-orange-500"
+        class="p-menuitem-link p-link inline-flex justify-content-center align-items-center hover:surface-100 transition-all transition-duration-200 p-2 mx-1 text-orange-200 font-bold"
       >
         <span [class]="item.icon"></span>
         <span class="ml-2">{{ item.label }}</span>
