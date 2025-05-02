@@ -17,9 +17,9 @@
     </ng-template>
     <ng-template pTemplate="end">
       <div class="card flex justify-content-center align-items-center gap-4">
-        <a>
+        <a [routerLink]="['../user/cart', '0']">
           <i
-            class="pi pi-shopping-cart text-3xl"
+            class="pi pi-shopping-cart text-3xl cursor-pointer"
             pBadge
             [value]="cartCount"
           ></i>

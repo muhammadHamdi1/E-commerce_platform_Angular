@@ -56,8 +56,7 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'details/:id',
-        loadComponent: () =>
+        path: 'details/:id', loadComponent: () =>
           import('./pages/details/details.component').then(
             (c) => c.DetailsComponent
           ),
@@ -77,6 +76,7 @@ export const routes: Routes = [
             (c) => c.SpecificCategoryComponent
           ),
       },
+      {path: '**', redirectTo: 'home' , pathMatch: 'full'}
     ],
   },
 ];

@@ -7,6 +7,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { SearchNamePipe } from '../../core/pipes/search-name.pipe';
+import { CartService } from '../../core/service/cart.service';
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -22,7 +23,10 @@ import { SearchNamePipe } from '../../core/pipes/search-name.pipe';
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent {
-  constructor(private _productsService: ProductsService,){};
+  constructor(
+    private _productsService: ProductsService,
+    private _cartService: CartService
+  ){};
   allProducts: IProducts[]= [];
   searchKey: string= '';
 
@@ -30,9 +34,14 @@ export class ProductsComponent {
     this.getAllProducts();
   }
 
-  getAllProducts() :void {
-    this._productsService.allProducts().subscribe((next)=>
-      // this.allProducts= next )
-      (this.allProducts= next.products) );
-  }
+  getAllProducts(): void {
+    this._productsService.allProducts().subscribe((response: any)=> {
+      this.allProducts= response.products.map((product: IProducts)=> {
+      return {
+        ...product,
+        isAddedToCart: this._cartService.isAddedToCart(product) || false,
+      };
+    });
+  });
+};
 }

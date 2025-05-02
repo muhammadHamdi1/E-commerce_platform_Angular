@@ -19,29 +19,13 @@ export class CardComponent {
   @Input({required:true}) products!: IProducts[];
   @Input() searchKey: string = '';
 
-  isAddedToCart: boolean= false
+  isAddedToCart: boolean= false;
 
 constructor(
   private _cartService: CartService,
-  private _notifecationsService: NotifecationsService
 ) {};
 
-  addToCart(productId: string): void {
-    const userId= localStorage.getItem('token')?? '';
-    this._cartService.addToCart({userId, productId}).subscribe((next)=> {
-      this._notifecationsService.showSuccess('success', next.message);
-      console.log(next);
-      // get count of products in cart
-      this._cartService.countOfCart.next(next.cart.length)
-      this.isAddedToCart= true;
-
-      // store product status in the shopping cart
-      // cartState = {key= product._id: value= boolean}
-      const storedCart= localStorage.getItem('cartState');
-      const cartState= storedCart? JSON.parse(storedCart): {};
-
-      cartState[productId]= true;
-      localStorage.setItem('cartState', JSON.stringify(cartState));
-    })
+  addToCart(product: IProducts) {
+    this._cartService.addToCart(product)
   }
 }

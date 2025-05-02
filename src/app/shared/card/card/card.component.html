@@ -64,13 +64,15 @@
             Swap between [add to cart & go to cart] -->
       @if (!isSmallCard) { @if(!product.isAddedToCart){
       <p-button
-        (click)="addToCart(product.id); product.isAddedToCart = true"
-        label="add to card"
+        (click)="addToCart(product); product.isAddedToCart = true"
+        label="add to cart"
         severity="warning"
         styleClass="my-2 uppercase w-full"
         icon="pi pi-cart-plus text-xl"
         iconPos="right"
-      />} @if (product.isAddedToCart){
+      />
+
+      } @if (product.isAddedToCart){
       <p-button
         [routerLink]="['../cart', product.id]"
         label="go to cart"
@@ -83,13 +85,13 @@
     </div>
   </div>
   }@empty { @if (!isSmallCard) {
-  <div class="flex-1 text-center">
+  <div class="text-center lg:col-4 m-auto">
     <app-empty></app-empty>
-    <h5 class="capitalize">
+    <h2 class="capitalize">
       no product to show <span class="text-red-500">{{ searchKey }}</span>
-    </h5>
+    </h2>
     <p-button
-      [routerLink]="['/user']"
+      [routerLink]="['/user/home']"
       label="back to home"
       severity="warning"
       styleClass="my-2 uppercase w-full"

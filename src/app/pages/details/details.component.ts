@@ -14,14 +14,16 @@ import { NotifecationsService } from '../../core/service/notifecations.service';
   styleUrl: './details.component.scss'
 })
 export class DetailsComponent {
-  id: string= '';
-  productDetails!: IProducts;
-  isAddedToCart: boolean= false
+
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _cartService: CartService,
-    private _notifecationsService: NotifecationsService
+
   ){};
+
+  id: string= '';
+  productDetails!: IProducts;
+  isAddedToCart: boolean= false
 
   ngOnInit(){
     this._activatedRoute.paramMap.subscribe(
@@ -33,26 +35,14 @@ export class DetailsComponent {
   displayDetails(): void {
     // get Data into resolve
     this._activatedRoute.data.subscribe((data: any)=> {
-      this.displayDetails = data.details.product
+      this.productDetails = {
+        ...data.details.product,
+        isAddedToCart: this._cartService.isAddedToCart(data.details.product)
+      }
     });
   };
 
-  addToCart(productId: string): void {
-    const userId= localStorage.getItem('token')?? '';
-    this._cartService.addToCart({userId, productId}).subscribe((next)=> {
-      this._notifecationsService.showSuccess('success', next.message);
-      console.log(next);
-      // get count of products in cart
-      this._cartService.countOfCart.next(next.cart.length)
-      this.isAddedToCart= true;
-
-      // store product status in the shopping cart
-      // cartState = {key= product._id: value= boolean}
-      const storedCart= localStorage.getItem('cartState');
-      const cartState= storedCart? JSON.parse(storedCart): {};
-
-      cartState[productId]= true;
-      localStorage.setItem('cartState', JSON.stringify(cartState));
-    })
-  };
+  addToCart(product: IProducts) {
+    this._cartService.addToCart(product);
+  }
 };

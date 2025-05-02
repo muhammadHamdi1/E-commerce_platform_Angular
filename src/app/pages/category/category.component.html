@@ -1,11 +1,11 @@
 <section>
   <div class="container-fluid">
     <h1 class="text-color-secondary capitalize my-5">all categories</h1>
-    <div class="grid">
+    <div class="grid justify-content-between">
       @for(category of allCategory; track $index){
       <div class="md:col-6 lg:col-4">
         <figure
-          [routerLink]="['/user/specificCategory', category]"
+          [routerLink]="['../specificCategory', category]"
           class="m-1 shadow-2 border-round-2xl overflow-hidden cursor-pointer"
         >
           <!-- <img class="w-full" src="./assets/product-1.jpg" [alt]="category" /> -->

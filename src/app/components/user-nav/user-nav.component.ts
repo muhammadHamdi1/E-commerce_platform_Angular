@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { RippleModule } from 'primeng/ripple';
 import { UserDataService } from '../../core/service/user-data.service';
 import { AuthService } from '../../core/service/auth.service';
-import { Router } from '@angular/router';
+import { Router,  } from '@angular/router';
 import { CartService } from '../../core/service/cart.service';
 
 @Component({
@@ -30,7 +30,8 @@ export class UserNavComponent {
     private _userData: UserDataService,
     private _cartService: CartService,
     private _auth:AuthService,
-    private _router: Router
+    private _router: Router,
+    // private _:RouterLinkActive
   ){
 
   }
@@ -54,9 +55,7 @@ export class UserNavComponent {
               icon: 'pi pi-th-large',
               path: 'categories'
           },
-
       ];
-
       // get update count of products in cart
       this._cartService.countOfCart.subscribe((next)=>{
         this.cartCount= next;
@@ -67,9 +66,11 @@ export class UserNavComponent {
     // set Name in userName Property
     this._userData.userName.subscribe((next)=> this.userName = next);
   }
+
   getUserCartCount(): void{
-    const id = localStorage.getItem('token') ?? ''
-    this._cartService.getCartCount(id).subscribe((next)=> this.cartCount= next.cart.length)
+    const id = localStorage.getItem('token') ?? '';
+    // store length of products
+    this._cartService.countOfCart.subscribe((next)=> this.cartCount= next);
   }
 
   logout(): void{

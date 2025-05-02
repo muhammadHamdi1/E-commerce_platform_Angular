@@ -1,6 +1,6 @@
 <section>
   <div class="container">
-    <div class="grid align-items-center pb-4 p-1">
+    <div class="grid align-items-center pb-4 p-2">
       <div class="md:col-6">
         <figure>
           <img
@@ -78,7 +78,7 @@
         @if(!productDetails.isAddedToCart){
         <p-button
           (click)="
-            addToCart(productDetails.id); productDetails.isAddedToCart = true
+            addToCart(productDetails); productDetails.isAddedToCart = true
           "
           label="add to card"
           severity="warning"
