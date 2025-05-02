@@ -1,4 +1,4 @@
-E-Commerce Project with Angular
+E-Commerce Project with Angular 17
 A practical Angular application for building a full E-Commerce project.
 
 Description
