@@ -25,6 +25,7 @@
 }
  /* Start Footer  */
 .footer {
+  position: relative;
   padding-top: 10px;
   padding-bottom: 10px;
   background-image:
@@ -88,10 +89,11 @@
   }
 }
 @media (max-width: 768px) {
-  .footer p:not(.copyright) {
-    font-size: 3em;
-    padding-top: 30px;
-    // background-color: red;
+  .footer .follow:not(.copyright) {
+    font-size: 2.5em;
+    padding-top: 20px;
+    padding-right: 0px;
+    padding-left: 0px;
   }
   .footer .social-icons i {
     font-size: 1.3em;
@@ -101,7 +103,7 @@
     font-size: 1em;
   }
   .footer .copyright span {
-    font-size: 1.1em;
+    font-size: 1em;
   }
 }
 .footer a i:hover{

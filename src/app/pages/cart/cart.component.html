@@ -38,18 +38,25 @@
                   <span class="text-xl font-semibold text-900">{{
                     "$" + product.price
                   }}</span>
-                  <div class="flex flex-row-reverse md:flex-row gap-2">
+                  <!-- Button pi-heart -->
+                  <div class="mt-2 flex justify-content-end">
+                    @if(!product.hart == true){
                     <p-button
+                      (click)="product.hart = true"
+                      class="heart"
                       icon="pi pi-heart"
                       [outlined]="true"
                       severity="warning"
                     />
+                    } @if(product.hart == true){
                     <p-button
-                      icon="pi pi-shopping-cart"
-                      class="flex-auto md:flex-initial white-space-nowrap"
-                      label="Buy Now"
+                      (click)="product.hart = false"
+                      class="heart"
+                      icon="pi pi-heart-fill"
+                      [outlined]="true"
                       severity="warning"
                     />
+                    }
                   </div>
                 </div>
               </div>

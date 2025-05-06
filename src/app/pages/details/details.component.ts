@@ -24,6 +24,7 @@ export class DetailsComponent {
   id: string= '';
   productDetails!: IProducts;
   isAddedToCart: boolean= false
+  isHart: boolean = false
 
   ngOnInit(){
     this._activatedRoute.paramMap.subscribe(

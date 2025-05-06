@@ -20,6 +20,8 @@ export class CardComponent {
   @Input() searchKey: string = '';
 
   isAddedToCart: boolean= false;
+  // isHart: boolean= false;
+
 
 constructor(
   private _cartService: CartService,

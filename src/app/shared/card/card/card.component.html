@@ -60,28 +60,54 @@
           </div>
         </div>
       </div>
-      <!-- Button
-            Swap between [add to cart & go to cart] -->
-      @if (!isSmallCard) { @if(!product.isAddedToCart){
-      <p-button
-        (click)="addToCart(product); product.isAddedToCart = true"
-        label="add to cart"
-        severity="warning"
-        styleClass="my-2 uppercase w-full"
-        icon="pi pi-cart-plus text-xl"
-        iconPos="right"
-      />
 
-      } @if (product.isAddedToCart){
-      <p-button
-        [routerLink]="['../cart', product.id]"
-        label="go to cart"
-        severity="contrast"
-        styleClass="my-2 uppercase w-full"
-        icon="pi pi-shopping-cart text-xl"
-        iconPos="right"
-      />
-      } }
+      <div class="parent-button flex justify-content-between gap-3">
+        <!-- Button pi-heart -->
+        <div class="mt-2">
+          <!-- @if(isHart == false){
+          <p-button
+            (click)="isHart = true"
+            class="heart"
+            icon="pi pi-heart"
+            [outlined]="true"
+            severity="warning"
+          />
+          } @if(isHart == true){
+          <p-button
+            (click)="isHart = false"
+            class="heart"
+            icon="pi pi-heart-fill"
+            [outlined]="true"
+            severity="warning"
+          />
+          }-->
+        </div>
+        <!-- button [add to card] & [go to cart] -->
+        <div class="flex-1">
+          <!-- Button
+            Swap between [add to cart & go to cart] -->
+          @if (!isSmallCard) { @if(!product.isAddedToCart){
+          <p-button
+            (click)="addToCart(product); product.isAddedToCart = true"
+            label="add to cart"
+            severity="warning"
+            styleClass="my-2 uppercase w-full"
+            icon="pi pi-cart-plus text-xl"
+            iconPos="right"
+          />
+
+          } @if (product.isAddedToCart){
+          <p-button
+            [routerLink]="['../cart', product.id]"
+            label="go to cart"
+            severity="contrast"
+            styleClass="my-2 uppercase w-full"
+            icon="pi pi-shopping-cart text-xl"
+            iconPos="right"
+          />
+          } }
+        </div>
+      </div>
     </div>
   </div>
   }@empty { @if (!isSmallCard) {

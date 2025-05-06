@@ -22,4 +22,5 @@ export interface IProducts {
   discount: number,
   popular: boolean;
   isAddedToCart: boolean;
+  hart: boolean
 }

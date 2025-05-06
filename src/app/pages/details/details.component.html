@@ -74,27 +74,52 @@
             <p class="text-orange-500 my-1">%{{ productDetails.discount }}</p>
           </div>
         </div>
-        <!-- button -->
-        @if(!productDetails.isAddedToCart){
-        <p-button
-          (click)="
-            addToCart(productDetails); productDetails.isAddedToCart = true
-          "
-          label="add to card"
-          severity="warning"
-          styleClass="my-2 uppercase w-full"
-          icon="pi pi-cart-plus text-xl"
-          iconPos="right"
-        />} @if (productDetails.isAddedToCart){
-        <p-button
-          [routerLink]="['../../cart', productDetails.id]"
-          label="go to cart"
-          severity="contrast"
-          styleClass="my-2 uppercase w-full"
-          icon="pi pi-shopping-cart text-xl"
-          iconPos="right"
-        />
-        }
+        <!-- Buttons [hart] & [add to cart] -->
+        <div class="flex justify-content-between gap-3">
+          <!-- Button pi-heart -->
+          <div class="mt-2">
+            @if(isHart == false){
+            <p-button
+              (click)="isHart = true"
+              class="heart"
+              icon="pi pi-heart"
+              [outlined]="true"
+              severity="warning"
+            />
+            } @if(isHart == true){
+            <p-button
+              (click)="isHart = false"
+              class="heart"
+              icon="pi pi-heart-fill"
+              [outlined]="true"
+              severity="warning"
+            />
+            }
+          </div>
+          <!-- button [add to card] & [go to cart] -->
+          <div class="flex-1">
+            @if(!productDetails.isAddedToCart){
+            <p-button
+              (click)="
+                addToCart(productDetails); productDetails.isAddedToCart = true
+              "
+              label="add to cart"
+              severity="warning"
+              styleClass="my-2 uppercase w-full"
+              icon="pi pi-cart-plus text-xl"
+              iconPos="right"
+            />} @if (productDetails.isAddedToCart){
+            <p-button
+              [routerLink]="['../../cart', productDetails.id]"
+              label="go to cart"
+              severity="contrast"
+              styleClass="my-2 uppercase w-full"
+              icon="pi pi-shopping-cart text-xl"
+              iconPos="right"
+            />
+            }
+          </div>
+        </div>
       </div>
     </div>
   </div>

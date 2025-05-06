@@ -15,6 +15,7 @@ import { routes } from '../../app.routes';
 })
 export class CartComponent {
   allCartProducts: IProducts[] = [];
+  // isHart: boolean= false
 
   ngOnInit() {
     if (localStorage.getItem('cartState') !== null) {
@@ -23,10 +24,8 @@ export class CartComponent {
       );
     }
   }
-
   clearCart(): void{
     localStorage.removeItem('cartState');
-    window.location.reload()
     this.allCartProducts= [];
   }
 }
