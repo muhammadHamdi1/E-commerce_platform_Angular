@@ -5,11 +5,12 @@ import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { CommonModule } from '@angular/common';
 import { routes } from '../../app.routes';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [DataViewModule, ButtonModule, TagModule, CommonModule],
+  imports: [DataViewModule, ButtonModule, TagModule, CommonModule, RouterLink],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
