@@ -14,3 +14,6 @@ This project is a hands-on Angular implementation of an E-Commerce store, coveri
      -  Categories
      -  Specific Category
      - Cart
+=============================================================
+
+live Demo:  https://muhammadhamdi1.github.io/E-commerce-Angular-Demo/
